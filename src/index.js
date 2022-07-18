@@ -65,11 +65,44 @@ class Counter extends React.Component {
 }
 
 // ------------------------------------------------------------------------
-// --------- WORKING WITH HOOKS (STATES IN FUNCTIONAL COMPONENTS) --------
+// --------- WORKING WITH HOOKS (STATES IN FUNCTIONAL COMPONENTS) ---------
 // ------------------------------------------------------------------------
 function HelloFunctional() {
-    const [name, setName] = useState("Ayaka");
+    const [name] = useState("Ayaka"); // Not setName cause will not use it.
     return <h1>Hello {name}.</h1>
+}
+
+// Counter app but using hooks and functional components
+function CounterHooked() {
+    const [counter, setCounter] = useState(0); // setCounter YES Here
+
+    function increment() {
+        setCounter(counter + 1);
+    }
+
+    return <div>
+        <p>{counter}</p>
+        <button onClick={increment}>Increment</button>
+    </div>
+}
+
+// ------------------------------------------------------------------------
+// ---------- LIFECYCLE METHODS (ONLY WORK IN CLASS COMPONENTS) -----------
+// ------------------------------------------------------------------------
+class CounterLifecycleMethods extends React.Component {
+    state = {
+        counter: 0
+    }
+    increment = () => {
+        this.setState({counter: this.state.counter + 1});
+    }
+    render() {
+        return <div>
+            <h3>Counter with Lifecycle Methods</h3>
+            <p className="p--counter">{this.state.counter}</p>
+            <button className="button--increment" onClick={this.increment}>Increment</button>
+        </div>
+    }
 }
 
 
@@ -79,5 +112,7 @@ root.render(
     <Hello></Hello>
     <Counter></Counter>
     <HelloFunctional></HelloFunctional>
+    <CounterHooked></CounterHooked>
+    <CounterLifecycleMethods></CounterLifecycleMethods>
     </>
 );
