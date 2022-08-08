@@ -198,10 +198,88 @@ function AddForm() {
             <input className="button bg-blue" type="submit" />
             <p className="p">Sum is {sum}</p>
         </form>
+    </div>;
+}
+
+function MyList(props) {
+    const arr = props.data;
+    // Map transforms each member of that list, and returns another list of the same size with the transformed members...
+    const listItems = arr.map( (val) => <li>{val}</li> );
+
+    return <div className="section">
+        <h2 className="subtitle">Rendering a List without keys for li's</h2>
+        <ul className="ul">{listItems}</ul>
+    </div>;
+}
+
+function MyListWithKeys(props) {
+    const arr = props.data;
+    const listItems = arr.map( (val, index) => <li key={index}>{val}</li>);
+
+    return <div className="section">
+        <h2 className="subtitle">List using keys for li's</h2>
+        <ul className="ul">{listItems}</ul>
+    </div>;
+}
+
+// ------------------------------------------------------------------------
+// ----------------- ¡¡¡BUILDING APP CONTACT MANAGER!!!--------------------
+// ------------------------------------------------------------------------
+/* ADD PERSON FORM */
+function AddPersonForm(props) {
+    const [person, setPerson] = useState("");
+
+    function handleChange(e) {
+        setPerson(e.target.value);
+    }
+    function handleSubmit(e) {
+        // This is the addPerson() function from Contact Manager Component
+        props.handleSubmit(person);
+        setPerson('');
+        e.preventDefault();
+    }
+
+    return <form onSubmit={handleSubmit} className="form">
+        <input className="input" type="text" placeholder="Add a new contact" onChange={handleChange} value={person} required />
+        <input type="submit" className="button bg-blue" value="Add" />
+    </form>;
+}
+/* PEOPLE LIST */
+function PeopleList(props) {
+    const arr = props.data;
+    const listItems = arr.map( (val, index) => <li key={index}>{val}</li>);
+
+    return <ul className="ul">{listItems}</ul>
+}
+/* CONTACT MANAGER */
+function ContactManager(props) {
+    const [contacts, setContacts] = useState(props.data);
+
+    function addPerson(name) {
+        setContacts([...contacts, name]);
+    }
+
+    return <div className="section">
+        <h2 className="subtitle">Contact Manager</h2>
+        <AddPersonForm handleSubmit={addPerson}></AddPersonForm>
+        <PeopleList data={contacts}></PeopleList>
+    </div>
+}
+
+function Summary() {
+    return <div className="section">
+        <div className="summary-wrapper">
+            <h2 className="subtitle">Summary</h2>
+            <p className="p">
+                An important takeaway from this lesson is that props can be used to pass down not only state, but also functions, that may manipulate the state. This way, we are able to store the application state in the parent and allow its child components to use and manipulate the state.
+            </p>
+        </div>
     </div>
 }
 
 
+const arrForListComponent = ["A", "B", "C", "D"];
+const arrForContactManager = ["James Smith", "Hugo Boss", "Kendall Jenner", "DJ Jeanner"];
 root.render(
     <div className="container">
         <App></App><hr />
@@ -213,6 +291,10 @@ root.render(
         <CounterUseEffect></CounterUseEffect><hr />
         <ToggleButton></ToggleButton><hr />
         <Converter></Converter><hr />
-        <AddForm></AddForm>
+        <AddForm></AddForm><hr />
+        <MyList data={arrForListComponent}></MyList><hr />
+        <MyListWithKeys data={arrForListComponent}></MyListWithKeys><hr />
+        <ContactManager data={arrForContactManager}></ContactManager><hr />
+        <Summary></Summary>
     </div>
 );

@@ -78,6 +78,14 @@ h1 {
   padding: .5rem 1rem;
   margin: 0 .2rem .2rem 0;
 }
+input::placeholder {
+  color: #cccccc;
+}
+.ul, .ol {
+  padding: 0 0 0 3rem;
+  font-size: 1.1rem;
+  font-weight: 300;
+}
 .bg-red {
   background: #B03A2E;
 }
@@ -89,4 +97,11 @@ h1 {
 }
 .button--increment:hover {
   background: #0f5ab6;
+}
+.summary-wrapper {
+  width: 70%;
+  text-align: justify;
+  margin: 0 auto;
+  padding: 1rem;
+  background: #EBEDEF;
 }
